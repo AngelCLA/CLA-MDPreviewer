@@ -1,0 +1,478 @@
+:root {
+      --gray-dark: 31, 41, 55;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'IBM Plex Mono', monospace;
+      background-color: #f5f5f5;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      height: 100%;
+    }
+
+    /* Asegurar que el main ocupe el espacio disponible */
+    #main-content {
+      display: flex;
+      flex: 1 1 0%;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+
+    .main-header {
+      background-color: rgba(124,58,237,0.18); /* púrpura más saturado */
+      color: #1f2937;
+      padding: 0.85rem 1.5rem;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 60px;
+      border-bottom: 1px solid #ddc9ff;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .header-logo {
+      height: 32px;
+      margin-right: 6px;
+    }
+
+    .main-header h1 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin: 0;
+      color: #7c3aed;
+    }
+
+    .layout-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .layout-btn {
+      background: rgba(124,58,237,0.12);
+      border: none;
+      border-radius: 0.4rem;
+      padding: 0.35rem 0.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: background 0.2s;
+      color: #7c3aed;
+    }
+
+    .layout-btn:hover {
+      background: rgba(124,58,237,0.22);
+    }
+
+    .layout-btn svg {
+      display: block;
+      width: 20px;
+      height: 20px;
+    }
+
+    footer {
+      background-color: #f9fafb;
+      color: #6b7280;
+      padding: 0.75rem 1.5rem;
+      text-align: center;
+      font-size: 0.875rem;
+      border-top: 1px solid #e5e7eb;
+      margin-top: auto;
+    }
+
+    .floating-buttons {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 10;
+    }
+
+    .floating-btn {
+      background-color: rgba(124,58,237,0.28); /* púrpura más saturado */
+      color: #7c3aed;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.625rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 6px rgba(124, 58, 237, 0.18);
+      transition: all 0.2s ease;
+      font-size: 0;
+      width: 40px;
+      height: 40px;
+    }
+
+    .floating-btn:hover {
+      background-color: rgba(109, 40, 217, 0.75);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 8px rgba(124, 58, 237, 0.28);
+    }
+
+    .floating-btn:active {
+      transform: translateY(0);
+    }
+
+    .floating-btn svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .editor-container {
+      display: flex;
+      flex: 1 1 0%;
+      min-height: 0;
+      overflow: hidden;
+      position: relative;
+      flex-direction: row;
+      transition: flex-direction 0.3s;
+    }
+    .editor-container.layout-row {
+      flex-direction: column !important;
+    }
+
+    .resizer {
+      background-color: #ddc9ff;
+      position: relative;
+      transition: background-color 0.2s;
+      z-index: 2;
+      width: 2px;
+      min-width: 2px;
+      min-height: 2px;
+      cursor: col-resize;
+      opacity: 1 !important;
+      pointer-events: auto;
+    }
+
+    /* Cuando está en modo filas */
+    .editor-container.layout-row .resizer {
+      width: 100%;
+      height: 2px;
+      min-height: 2px;
+      min-width: 100%;
+      cursor: row-resize;
+      background-color: #bb95f7;
+      opacity: 1 !important;
+      pointer-events: auto;
+    }
+
+    .resizer:hover {
+      background-color: #7c3aed;
+    }
+
+    .resizer::before {
+      content: '';
+      position: absolute;
+      cursor: col-resize;
+      /* Por defecto: columnas */
+      top: 0;
+      bottom: 0;
+      left: -5px;
+      right: -5px;
+    }
+
+    /* Área de interacción para modo filas */
+    .editor-container.layout-row .resizer::before {
+      cursor: row-resize;
+      top: -5px;
+      bottom: -5px;
+      left: 0;
+      right: 0;
+    }
+
+    .editor-pane, .preview-pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .pane-header {
+      background-color: rgba(124,58,237,0.10); /* púrpura más claro y visible */
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e5d8fb;
+      font-weight: 600;
+      color: #374151;
+      transition: background 0.2s;
+    }
+
+    #markdown-input {
+      flex: 1;
+      padding: 2rem;
+      border: none;
+      outline: none;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      resize: none;
+      background-color: #fff;
+      overflow-y: auto;
+    }
+
+    #preview {
+      flex: 1;
+      padding: 2rem;
+      background-color: #fff;
+      overflow-y: auto;
+    }
+
+    /* Estilos del blog para el preview */
+    .markdown-content h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      color: rgb(var(--gray-dark));
+    }
+
+    .markdown-content h2 {
+      font-size: clamp(1.5rem, 3.5vw, 1.875rem);
+      font-weight: 600;
+      margin-top: 1.75rem;
+      margin-bottom: 0.875rem;
+      color: rgb(var(--gray-dark));
+    }
+
+    .markdown-content h3 {
+      font-size: clamp(1.25rem, 3vw, 1.5rem);
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: rgb(var(--gray-dark));
+    }
+
+    .markdown-content h4 {
+      font-size: clamp(1.125rem, 2.5vw, 1.25rem);
+      font-weight: 600;
+      margin-top: 1.25rem;
+      margin-bottom: 0.625rem;
+    }
+
+    .markdown-content p {
+      margin-bottom: 1.25rem;
+      font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+      line-height: 1.7;
+    }
+
+    .markdown-content a {
+      color: #2563eb;
+      text-decoration: underline;
+      word-wrap: break-word;
+    }
+
+    .markdown-content a:hover {
+      color: #1d4ed8;
+    }
+
+    .markdown-content ul {
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+      list-style-type: disc;
+      list-style-position: outside;
+    }
+
+    .markdown-content ol {
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+      list-style-type: decimal;
+      list-style-position: outside;
+    }
+
+    .markdown-content li {
+      margin-bottom: 0.5rem;
+      font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+      display: list-item;
+    }
+
+    .markdown-content ul ul {
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      list-style-type: circle;
+    }
+
+    .markdown-content ul ul ul {
+      list-style-type: square;
+    }
+
+    .markdown-content code {
+      background-color: #f3f4f6;
+      padding: 0.125rem 0.375rem;
+      border-radius: 0.25rem;
+      font-size: 0.875em;
+      font-family: 'IBM Plex Mono', monospace;
+      color: #1f2937;
+      word-wrap: break-word;
+    }
+
+    .markdown-content pre {
+      background-color: #1f2937;
+      color: #f9fafb;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-size: clamp(0.8125rem, 1.5vw, 0.9375rem);
+    }
+
+    .markdown-content pre code {
+      background-color: transparent;
+      padding: 0;
+      color: inherit;
+    }
+
+    .markdown-content blockquote {
+      border-left: 4px solid #e5e7eb;
+      padding-left: 1.25rem;
+      font-style: italic;
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+      margin-left: 0;
+      font-size: clamp(0.9375rem, 2vw, 1.0625rem);
+    }
+
+    .markdown-content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.5rem;
+      margin: 2rem 0;
+    }
+
+    .markdown-content strong {
+      font-weight: 600;
+    }
+
+    .markdown-content em {
+      font-style: italic;
+    }
+
+    .markdown-content hr {
+      border: none;
+      border-top: 1px solid #e5e7eb;
+      margin: 2.5rem 0;
+    }
+
+    .markdown-content table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+      display: block;
+    }
+
+    .markdown-content th,
+    .markdown-content td {
+      border: 1px solid #e5e7eb;
+      padding: 0.625rem;
+      text-align: left;
+      font-size: clamp(0.875rem, 1.8vw, 1rem);
+    }
+
+    .markdown-content th {
+      background-color: #f9fafb;
+      font-weight: 600;
+    }
+
+
+    /* Layout filas: separación visual clara */
+    .editor-container.layout-row #preview {
+      border-left: none;
+      border-top: 1px solid #ebe8e5;
+      box-shadow: 0 -2px 8px 0 rgba(124,58,237,0.06);
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      .editor-container {
+        flex-direction: column;
+      }
+
+      #preview {
+        border-left: none;
+        border-top: 1px solid #e5e7eb;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .markdown-content pre {
+        margin-left: -1rem;
+        margin-right: -1rem;
+        border-radius: 0;
+      }
+    }
+
+
+    /* Estilos personalizados para scrollbars - Webkit (Chrome, Safari, Edge) */
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #a855f7;
+      border-radius: 5px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+      transition: background-color 0.3s ease;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #9370db;
+      background-clip: padding-box;
+    }
+
+    /* Modo oscuro - Webkit scrollbars */
+    .dark ::-webkit-scrollbar-thumb {
+      background-clip: padding-box; background-clip: padding-box;
+    }    
+
+    .dark ::-webkit-scrollbar-thumb:hover {bar-thumb:hover {
+      background: #8b5cf6;
+      background-clip: padding-box; background-clip: padding-box;
+    }    }
+
+    /* Firefox scrollbars */Firefox scrollbars */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #a855f7 transparent; scrollbar-color: #a855f7 transparent;
+    }    
+
+    .dark * {
+      scrollbar-color: #8b5cf6 transparent; scrollbar-color: #8b5cf6 transparent;
+
+    }

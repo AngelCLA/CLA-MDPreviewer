@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Previsualizador de Markdown en vivo con estilos personalizados para blogs. Escribe, edita y visualiza tu Markdown al instante. Ideal para bloggers y creadores de contenido.">
+  <meta name="keywords" content="Markdown, Preview, Editor, Blog, Live, CLA, CLAAngel, Previsualizador, HTML, CSS, JavaScript">
+  <meta name="author" content="CLAAngel">
+  <meta property="og:title" content="CLA-MD Live Previewer - Editor Markdown en Vivo" />
+  <meta property="og:description" content="Previsualiza y edita Markdown en tiempo real con estilos de blog. Herramienta ideal para bloggers y creadores de contenido." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./assets/og-image.png" />
+  <meta property="og:url" content="https://md-claangel.site/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CLA-MD Live Previewer - Editor Markdown en Vivo" />
+  <meta name="twitter:description" content="Previsualiza y edita Markdown en tiempo real con estilos de blog. Herramienta ideal para bloggers y creadores de contenido." />
+  <meta name="twitter:image" content="./assets/og-image.png" />
+  <link rel="icon" type="image/png" href="./assets/Logo.svg">
+  <title>CLA-MD Live Previewer | Editor Markdown en Vivo para Blogs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.1.1/marked.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header class="main-header" role="banner">
+      <div class="header-left">
+        <img src="./assets/Logo.svg" alt="Logo CLA-MD Live Previewer" class="header-logo" width="32" height="32" />
+        <h1 id="main-title">CLA-MD Live Previewer</h1>
+      </div>
+      <div class="layout-buttons">
+        <button class="layout-btn" id="layout-toggle" title="Cambiar entre vista columnas y filas" aria-label="Cambiar layout" aria-pressed="false">
+          <span id="layout-icon">
+            <!-- Icono columnas por defecto -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="7" height="16" rx="2"/><rect x="14" y="4" width="7" height="16" rx="2"/></svg>
+          </span>
+        </button>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <section class="editor-container" aria-label="Editor y previsualización de Markdown">
+        <section class="editor-pane" aria-label="Editor Markdown">
+          <div class="pane-header" id="editor-label">Markdown</div>
+          <label for="markdown-input" class="visually-hidden">Editor de Markdown</label>
+          <textarea id="markdown-input" placeholder="Escribe tu Markdown aquí..." aria-labelledby="editor-label" aria-describedby="main-title"></textarea>
+          <div class="floating-buttons">
+            <button class="floating-btn" id="clear-btn" title="Limpiar todo" aria-label="Limpiar todo">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 6h18"></path>
+                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+              </svg>
+            </button>
+            <button class="floating-btn" id="copy-btn" title="Copiar Markdown" aria-label="Copiar Markdown">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
+        </section>
+        <div class="resizer" id="resizer" tabindex="0" role="separator" aria-orientation="vertical" aria-label="Redimensionar paneles"></div>
+        <section class="preview-pane" aria-label="Vista previa Markdown">
+          <div class="pane-header" id="preview-label">Preview</div>
+          <div id="preview" class="markdown-content" aria-labelledby="preview-label"></div>
+        </section>
+      </section>
+    </main>
+    <footer role="contentinfo">
+      <p>Desarrollado por <span style="color: blueviolet;"><a style="text-decoration: none; font-weight: 600;" href="https://claangel.site" target="_blank" rel="noopener noreferrer">CLAAngel</a></span> &copy; 2025. <span>Todos los derechos reservados.</span></p>
+      <p style="font-size:0.85em;color:#a78bfa;">Editor Markdown en vivo, optimizado para Blogs.</p>
+    </footer>
+  </div>
+  <style>
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
