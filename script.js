@@ -352,3 +352,36 @@ function saludar(nombre) {
         }, { once: true });
       }
     }
+
+    // Scroll synchronization between editor and preview
+    (function setupScrollSync() {
+      if (!input || !preview) return;
+      let syncingFrom = null;
+
+      function syncScroll(src, dst) {
+        if (syncingFrom === dst) return;
+        syncingFrom = src;
+        
+        const srcMax = src.scrollHeight - src.clientHeight || 1;
+        const ratio = Math.max(0, Math.min(1, src.scrollTop / srcMax));
+        const target = Math.round(ratio * Math.max(0, dst.scrollHeight - dst.clientHeight));
+        
+        dst.scrollTop = target;
+        
+        requestAnimationFrame(() => {
+          syncingFrom = null;
+        });
+      }
+
+      input.addEventListener('scroll', () => syncScroll(input, preview), { passive: true });
+      preview.addEventListener('scroll', () => syncScroll(preview, input), { passive: true });
+
+      // Keep sync after content updates
+      const observer = new MutationObserver(() => {
+        if (syncingFrom) return;
+        const srcMax = input.scrollHeight - input.clientHeight || 1;
+        const ratio = Math.max(0, Math.min(1, input.scrollTop / srcMax));
+        preview.scrollTop = Math.round(ratio * Math.max(0, preview.scrollHeight - preview.clientHeight));
+      });
+      observer.observe(preview, { childList: true, subtree: true, characterData: true });
+    })();

@@ -211,6 +211,34 @@
     cursor: pointer;
   }
 
+/* Custom scrollbar for editor and preview */
+#markdown-input::-webkit-scrollbar,
+#preview::-webkit-scrollbar {
+  width: 12px;
+}
+#markdown-input::-webkit-scrollbar-track,
+#preview::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.04);
+  border-radius: 8px;
+}
+#markdown-input::-webkit-scrollbar-thumb,
+#preview::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(124,58,237,0.9), rgba(109,40,217,0.9));
+  border-radius: 8px;
+  border: 3px solid rgba(0,0,0,0);
+  background-clip: padding-box;
+}
+#markdown-input::-webkit-scrollbar-thumb:hover,
+#preview::-webkit-scrollbar-thumb:hover {
+  filter: brightness(1.05);
+}
+
+/* Firefox */
+#markdown-input, #preview {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124,58,237,0.9) rgba(0,0,0,0.04);
+}
+
     .btn-muted {
       background: #f3f4f6;
       color: #374151;
