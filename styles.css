@@ -2,6 +2,19 @@
       --gray-dark: 31, 41, 55;
     }
 
+    /* Utility for screen-reader-only labels */
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -91,12 +104,124 @@
       height: 20px;
     }
 
+    /* Modal styles (minimal, accessible) */
+    .modal.hidden {
+      display: none;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(15, 10, 30, 0.4);
+      backdrop-filter: blur(2px);
+    }
+
+    .modal-box {
+      position: relative;
+      background: #fff;
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      max-width: 520px;
+      width: calc(100% - 2rem);
+      box-shadow: 0 8px 30px rgba(18, 10, 50, 0.12);
+      z-index: 10;
+    }
+
+    .modal-title {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.05rem;
+      color: #1f2937;
+    }
+
+    .modal-message {
+      margin: 0 0 1rem 0;
+      color: #374151;
+      line-height: 1.4;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+    }
+
+    .btn {
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
+    }
+
+    .btn-primary {
+      background: #7c3aed;
+      color: #fff;
+    }
+
+  /* Toast notifications */
+  #toast-container {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 9999;
+    pointer-events: none;
+  }
+  .toast {
+    display: flex;
+    min-width: 160px;
+    max-width: 320px;
+    background: rgba(0,0,0,0.85);
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 8px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    font-size: 14px;
+    line-height: 1.2;
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    transition: opacity 200ms ease, transform 200ms ease;
+    pointer-events: auto;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .toast.success { background: rgba(56, 161, 105, 0.95); }
+  .toast.info { background: rgba(59, 130, 246, 0.95); }
+  .toast.error { background: rgba(239, 68, 68, 0.95); }
+  .toast .toast-close {
+    background: transparent;
+    border: none;
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+    margin-left: 8px;
+    cursor: pointer;
+  }
+
+    .btn-muted {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
     footer {
       background-color: #f9fafb;
       color: #6b7280;
-      padding: 0.75rem 1.5rem;
+      padding: 0.75rem;
       text-align: center;
-      font-size: 0.875rem;
+      font-size: 0.75rem;
       border-top: 1px solid #e5e7eb;
       margin-top: auto;
     }
