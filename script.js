@@ -86,6 +86,54 @@ function saludar(nombre) {
       }
     }
 
+    // Configure marked to use Highlight.js for code blocks with auto-detection
+    if (window.hljs && typeof marked !== 'undefined') {
+      function normalizeLang(lang) {
+        if (!lang) return null;
+        const l = lang.toLowerCase().trim();
+        const map = {
+          ts: 'typescript',
+          js: 'javascript',
+          py: 'python',
+          sh: 'bash',
+          shell: 'bash',
+          bash: 'bash',
+          jsx: 'javascript',
+          tsx: 'typescript',
+          html: 'xml',
+        };
+        return map[l] || l;
+      }
+
+      const renderer = new marked.Renderer();
+      renderer.code = (code, infostring, escaped) => {
+        const rawLang = (infostring || '').split(/\s+/)[0];
+        const language = normalizeLang(rawLang) || null;
+        try {
+          const highlighted = (language && hljs.getLanguage(language))
+            ? hljs.highlight(code, { language }).value
+            : hljs.highlightAuto(code).value;
+          const langClass = language ? ` language-${language}` : '';
+          return `<pre><code class="hljs${langClass}">${highlighted}</code></pre>`;
+        } catch (err) {
+          const safe = escaped ? code : escapeHtml(code);
+          const langClass = language ? ` language-${language}` : '';
+          return `<pre><code class="hljs${langClass}">${safe}</code></pre>`;
+        }
+      };
+
+      function escapeHtml(html) {
+        return html
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      marked.setOptions({ renderer });
+    }
+
     function updatePreview() {
       const markdown = input.value;
       preview.innerHTML = marked.parse(markdown);
